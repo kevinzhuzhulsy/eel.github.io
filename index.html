@@ -1,11 +1,390 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <title>My Personal Website</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Shanyu Liu (刘善宇) — Master's researcher in LLM-based multi-agent systems, adaptive routing, agent memory, and industrial AI." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Shanyu Liu · 刘善宇 | Research & Projects" />
+  <meta property="og:description" content="Research in LLM-based Multi-Agent Systems, adaptive routing, agent memory, and applied AI." />
+  <title>刘善宇 Shanyu Liu · 学术主页</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --surface-2: #f1f5fb;
+      --ink: #18263a;
+      --ink-strong: #111b2b;
+      --muted: #5f6d81;
+      --light-muted: #8995a5;
+      --accent: #345fbd;
+      --accent-strong: #244da8;
+      --accent-soft: #eaf0ff;
+      --outline: #e2e8f1;
+      --shadow: 0 24px 62px rgba(24, 47, 87, .075);
+      --serif: Georgia, 'Times New Roman', 'Songti SC', 'STSong', serif;
+    }
+    html[data-theme="dark"] {
+      --bg: #101720;
+      --surface: #172330;
+      --surface-2: #1c2b3b;
+      --ink: #e1e9f4;
+      --ink-strong: #f9fbff;
+      --muted: #a6b5c6;
+      --light-muted: #8495aa;
+      --accent: #8eafff;
+      --accent-strong: #aac2ff;
+      --accent-soft: #263957;
+      --outline: #2b3b4e;
+      --shadow: 0 28px 70px rgba(0,0,0,.18);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.72 -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.lang-zh .en, body.lang-en .zh { display: none !important; }
+    ::selection { background: #a9c3fa; color: #0c2348; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    .skip { position: absolute; left: -9999px; top: 12px; padding: 8px 16px; background: var(--surface); z-index: 999; }
+    .skip:focus { left: 12px; }
+    .wrap { width: min(1136px, calc(100% - 52px)); margin: 0 auto; }
+    .topline {
+      height: 5px;
+      background: linear-gradient(90deg,#1b3362 10%, #3569ce 55%, #7eb6e9 100%);
+    }
+    .site-header {
+      position: sticky; top: 0; z-index: 20;
+      background: color-mix(in srgb,var(--surface) 94%,transparent);
+      border-bottom: 1px solid var(--outline);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .header-inner { display: flex; align-items: center; gap: 24px; min-height: 76px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.05em; font-size: 20px; white-space: nowrap; }
+    .brand-symbol { width: 34px; height: 34px; border-radius: 11px; background: var(--ink-strong); color: var(--surface); display:grid; place-items:center; font: 800 15px/1 sans-serif; letter-spacing: -.06em; }
+    .brand-dot { color: var(--accent); }
+    .nav-links { margin-left: auto; display: flex; align-items:center; gap: clamp(12px,1.7vw,24px); }
+    .nav-links a { color: var(--muted); font-size: 13px; font-weight: 650; transition: color .2s; white-space:nowrap; }
+    .nav-links a:hover { color:var(--accent); }
+    .header-tools { display:flex; align-items:center; gap:7px; margin-left: 8px; }
+    .small-btn { display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--outline); background: var(--surface); color:var(--ink); height:35px; border-radius: 9px; padding: 0 10px; cursor:pointer; font-size:12px; font-weight:750; transition:background .2s, border-color .2s; }
+    .small-btn:hover { border-color: var(--accent); }
+    .small-btn[aria-pressed="true"] { color:var(--accent-strong); background:var(--accent-soft); border-color:color-mix(in srgb,var(--accent) 30%,var(--outline)); }
+    .theme-button { font-size:18px; width:35px; padding:0; }
+    .hero { position:relative; overflow:hidden; padding: 87px 0 76px; }
+    .hero::before { content:""; position:absolute; right:-190px; top:-215px; height:610px; width:610px; background:radial-gradient(circle,rgba(91,138,238,.115),transparent 70%); pointer-events:none; }
+    .hero-grid { display:grid; grid-template-columns: 1.25fr .88fr; gap: clamp(28px,6.5vw,90px); align-items: center; }
+    .eyebrow { display:flex; align-items:center; gap:10px; color:var(--accent-strong); font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    .eyebrow::before { content:""; display:inline-block; height:2px; width:31px; border-radius:3px; background:var(--accent); }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { font-family:var(--serif); margin:23px 0 12px; font-size:clamp(53px,6.5vw,82px); line-height:1.12; color:var(--ink-strong); letter-spacing:-.055em; }
+    h1 .en { letter-spacing: -.075em; }
+    .pronunciation { color:var(--muted); letter-spacing:.12em; font-size:13px; font-weight:750; text-transform:uppercase; margin-bottom:24px; }
+    .hero-subtitle { font-size:clamp(20px,2.3vw,27px); line-height:1.5; font-weight:720; color:var(--ink-strong); max-width:700px; margin-bottom:17px; letter-spacing:-.025em; }
+    .hero-body { color:var(--muted); font-size:15px; max-width:600px; line-height:1.92; margin-bottom:25px; }
+    .hero-affiliation { display:flex; gap:12px; align-items:center; color:var(--muted); font-size:13px; margin-bottom:28px; }
+    .affiliation-icon { width:36px;height:36px;background:var(--accent-soft);color:var(--accent);border-radius:11px;display:grid;place-items:center;font-size:18px;flex-shrink:0; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn { display:inline-flex; gap:12px; align-items:center; justify-content:center; min-height:46px; border-radius:11px; padding:10px 19px; font-size:13px; font-weight:760; transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .btn:hover { transform:translateY(-2px); }
+    .btn-primary { background:var(--ink-strong); color:var(--surface); box-shadow:0 12px 24px rgba(30,50,80,.12); }
+    .btn-outline { background:var(--surface); color:var(--ink); border:1px solid var(--outline); }
+    .btn-outline:hover { border-color:var(--accent); }
+    .photo-region { padding:22px; position:relative; }
+    .photo-region::before { content:""; position:absolute; inset: 1px 0 15px 27px; border:1px solid #bfd0ee; border-radius:28px; transform:rotate(4deg); }
+    .photo-region::after { content:""; position:absolute; width:80px;height:80px;left:-14px;bottom:-8px;border:2px solid rgba(64,116,208,.24);border-radius:24px;z-index:0;transform:rotate(-13deg); }
+    .photo-frame { position:relative; z-index:1; overflow:hidden; background:#158cd1; border-radius:20px; box-shadow:0 25px 65px rgba(26,65,124,.18); aspect-ratio: .82; max-width:385px; margin-left:auto; }
+    .photo-frame img { display:block; width:100%; height:100%; object-fit:cover; object-position:center 30%; }
+    .photo-caption { position:absolute; z-index:2; left:-9px; bottom:40px; padding:12px 18px; background:var(--surface); border:1px solid var(--outline); border-radius:13px; box-shadow:var(--shadow); color:var(--muted); font-size:12px; line-height:1.5; }
+    .photo-caption strong { color:var(--ink-strong); display:block; font-size:13px; }
+    .metrics { display:grid; grid-template-columns: repeat(3,1fr); background:var(--surface); border:1px solid var(--outline); border-radius:18px; box-shadow:var(--shadow); overflow:hidden; }
+    .metric { padding:28px 31px 25px; min-width:0; }
+    .metric:not(:last-child) { border-right:1px solid var(--outline); }
+    .metric-number { font:700 37px/1.16 var(--serif); color:var(--accent-strong); letter-spacing:-.04em; }
+    .metric-name { margin-top:10px; font-weight:740; color:var(--ink-strong); font-size:13px; }
+    .metric-source { font-size:11px; color:var(--light-muted); margin-top:4px; line-height:1.5; }
+    .section { padding:91px 0 0; scroll-margin-top:100px; }
+    .section-head { display:flex; align-items:flex-end; gap:30px; justify-content:space-between; margin-bottom:30px; }
+    .section-kicker { color:var(--accent-strong); font-size:11px; font-weight:800; letter-spacing:.17em; text-transform:uppercase; }
+    h2 { color:var(--ink-strong); font:700 clamp(30px,3.3vw,42px)/1.25 var(--serif); letter-spacing:-.045em; margin:10px 0 0; }
+    .section-lead { max-width:455px; font-size:14px; color:var(--muted); margin:0; line-height:1.85; }
+    .body-copy { color:var(--muted); line-height:1.95; font-size:15px; }
+    .about-grid { display:grid; grid-template-columns:1.35fr .82fr; gap:22px; align-items:stretch; }
+    .panel { border:1px solid var(--outline); border-radius:17px; background:var(--surface); padding:30px 32px; }
+    .about-grid .panel p:last-child { margin-bottom:0; }
+    .label-small { font-size:11px; letter-spacing:.13em; font-weight:800; color:var(--accent-strong); margin:0 0 14px; text-transform:uppercase; }
+    .interest-tag { display:inline-block; margin:0 7px 9px 0; padding:7px 12px; font-size:12px; line-height:1.4; border:1px solid var(--outline); border-radius:999px; color:var(--ink); background:var(--surface-2); }
+    .research-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:17px; }
+    .research-card { padding:29px 27px; border:1px solid var(--outline); border-radius:17px; background:var(--surface); min-height:247px; transition:transform .2s, box-shadow .2s; }
+    .research-card:hover,.project-card:hover,.pub-card:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
+    .research-icon { width:46px;height:46px;border-radius:13px;background:var(--accent-soft);display:grid;place-items:center;font-size:21px;margin-bottom:22px; }
+    h3 { color:var(--ink-strong); margin:0 0 12px; font-size:18px; line-height:1.52; letter-spacing:-.015em; }
+    .research-card p,.project-card p { font-size:13px; color:var(--muted); margin:0; line-height:1.85; }
+    .pub-list { display:grid; gap:18px; }
+    .pub-card { display:grid; grid-template-columns: 106px 1fr; gap:29px; padding:30px 31px; background:var(--surface); border:1px solid var(--outline); border-radius:18px; transition:transform .2s,box-shadow .2s; }
+    .pub-year { color:var(--accent-strong); font:700 29px/1.2 var(--serif); padding-top:5px; }
+    .pub-year span { display:block; font:700 10px/1.5 sans-serif; letter-spacing:.1em; color:var(--muted); margin-top:6px; }
+    .pub-topline { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:11px; }
+    .pill { display:inline-block; background:var(--accent-soft); border-radius:6px; color:var(--accent-strong); padding:4px 9px; font-size:11px; font-weight:730; line-height:1.5; }
+    .pill.neutral { background:var(--surface-2); color:var(--muted); }
+    .pub-title { font-size:19px; line-height:1.5; letter-spacing:-.018em; margin-bottom:12px; }
+    .pub-card p { color:var(--muted); font-size:13px; line-height:1.85; margin:0 0 12px; }
+    .result-line { font-size:12px; font-weight:680; color:var(--ink); background:var(--surface-2); padding:10px 12px; border-radius:9px; margin-bottom:13px; }
+    .text-link { color:var(--accent-strong); display:inline-flex; align-items:center; gap:9px; font-size:12px; font-weight:790; }
+    .text-link:hover { text-decoration:underline; }
+    .project-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:17px; }
+    .project-card { display:flex; flex-direction:column; padding:26px 27px 25px; border-radius:16px; border:1px solid var(--outline); background:var(--surface); transition:transform .2s,box-shadow .2s; }
+    .project-number { color:var(--accent-strong); letter-spacing:.13em; font-weight:800; font-size:11px; margin-bottom:12px; }
+    .project-card h3 { font-size:17px; }
+    .tech-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:20px; }
+    .tech { padding:4px 8px; font-size:10px; font-weight:700; border-radius:6px; background:var(--surface-2); color:var(--muted); line-height:1.5; }
+    .education-grid { display:grid; grid-template-columns:1.2fr .8fr; gap:20px; }
+    .timeline { background:var(--surface); border:1px solid var(--outline); border-radius:17px; padding:31px 32px 29px; }
+    .timeline-item { position:relative; padding:0 0 27px 26px; border-left:1px solid var(--outline); }
+    .timeline-item:last-child { border-left-color:transparent; padding-bottom:0; }
+    .timeline-item::before { content:""; position:absolute; left:-5px; top:4px; width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft); }
+    .date { color:var(--accent-strong); font-size:11px; font-weight:800; letter-spacing:.05em; margin-bottom:6px; }
+    .timeline-item h3 { font-size:16px; margin:0 0 5px; }
+    .timeline-item p { color:var(--muted); font-size:12px; line-height:1.65; margin:0; }
+    .edu-extra { background:linear-gradient(140deg,var(--accent-soft),var(--surface) 72%);border:1px solid var(--outline);border-radius:17px;padding:30px; }
+    .edu-extra strong { font:700 32px/1.2 var(--serif); color:var(--ink-strong); display:block; margin:4px 0; }
+    .edu-extra p { color:var(--muted);font-size:13px;line-height:1.8;margin:6px 0 24px; }
+    .divider-line { height:1px;background:var(--outline);margin:20px 0; }
+    .honors-list { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .honor { background:var(--surface);border:1px solid var(--outline);border-radius:13px;padding:18px 20px;display:flex;align-items:flex-start;gap:14px; }
+    .honor-mark { color:var(--accent-strong);font-family:var(--serif);font-size:23px;line-height:1; }
+    .honor div { color:var(--ink);font-size:13px;line-height:1.7; }
+    .contact-panel { margin:0 0 70px; border-radius:23px; background:linear-gradient(128deg,#1b3155,#2b4e81 80%); color:#fff; padding:44px 49px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .contact-panel h2 { color:white; margin:5px 0 14px; font-size:38px; }
+    .contact-panel p { color:#cfdaea; font-size:14px; line-height:1.8; margin:0; max-width:560px; }
+    .contact-panel .section-kicker { color:#b8d3ff; }
+    .contact-buttons {display:flex;gap:10px;flex-wrap:wrap; }
+    .contact-buttons .btn {white-space:nowrap;background:white;color:#213960; }
+    .contact-buttons .btn.ghost {background:transparent;color:white;border:1px solid #7790b7;}
+    .site-footer {padding:25px 0 36px;border-top:1px solid var(--outline);}
+    .footer-inner { display:flex;align-items:center; justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--light-muted);font-size:12px; }
+    .footer-inner a {color:var(--muted);}
+    @media(max-width:1020px) {
+      .nav-links { gap:13px; }
+      .nav-links a {font-size:12px;}
+      .brand {font-size:17px;}
+      .header-inner {gap:12px;}
+      .hero {padding-top:65px;}
+      .hero-grid { gap:30px;}
+      .photo-caption {left:-16px;}
+    }
+    @media(max-width:780px) {
+      .wrap {width:min(100% - 32px,650px);}
+      .header-inner {display:grid; grid-template-columns:1fr auto; gap:8px; padding:12px 0 9px; }
+      .nav-links {order:3; grid-column:1 / -1; overflow-x:auto; margin:0; padding-bottom:6px; scrollbar-width:none;}
+      .nav-links::-webkit-scrollbar {display:none;}
+      .header-tools {margin-left:0;}
+      .hero-grid,.about-grid,.education-grid {grid-template-columns:1fr;}
+      .hero {padding:55px 0 44px;}
+      .photo-region {max-width:390px;width:100%;margin:25px auto 0;}
+      .photo-frame {margin:auto;max-width:315px;}
+      .photo-caption {left:-1px;bottom:15px;}
+      .metrics,.research-grid {grid-template-columns:1fr;}
+      .metric {padding:21px 25px;}
+      .metric:not(:last-child) {border-right:0;border-bottom:1px solid var(--outline);}
+      .section {padding-top:67px;scroll-margin-top:135px;}
+      .section-head {display:block;}
+      .section-lead {margin-top:15px;}
+      .research-card {min-height:0;}
+      .project-grid,.honors-list {grid-template-columns:1fr;}
+      .pub-card {grid-template-columns:1fr;gap:10px;padding:24px;}
+      .pub-year span {display:inline;margin-left:8px;}
+      .contact-panel {padding:28px 25px;display:block;}
+      .contact-buttons {margin-top:24px;}
+    }
+    @media(max-width:380px) {
+      .photo-region {padding:13px;}
+      h1 {font-size:51px;}
+      .hero-subtitle {font-size:19px;}
+      .panel {padding:24px;}
+      .small-btn {padding:0 8px;}
+    }
+    @media(prefers-reduced-motion:reduce) {
+      html {scroll-behavior:auto;}
+      *,*::before,*::after {transition:none !important;animation:none !important;}
+    }
+  </style>
 </head>
-<body>
-    <h1>Welcome to my website!</h1>
-    <p>This is my personal academic homepage.</p>
+<body class="lang-zh">
+  <div class="topline"></div>
+  <a class="skip" href="#main"><span class="zh">跳转到正文</span><span class="en">Skip to content</span></a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Shanyu Liu homepage"><span class="brand-symbol">SL</span>Shanyu Liu<span class="brand-dot">.</span></a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#about"><span class="zh">关于</span><span class="en">About</span></a>
+        <a href="#research"><span class="zh">研究方向</span><span class="en">Research</span></a>
+        <a href="#publications"><span class="zh">论文</span><span class="en">Publications</span></a>
+        <a href="#projects"><span class="zh">项目</span><span class="en">Projects</span></a>
+        <a href="#education"><span class="zh">经历</span><span class="en">Education</span></a>
+        <a href="#honors"><span class="zh">荣誉</span><span class="en">Honors</span></a>
+        <a href="#contact"><span class="zh">联系</span><span class="en">Contact</span></a>
+      </nav>
+      <div class="header-tools">
+        <button class="small-btn" id="zh-btn" type="button" aria-label="切换中文" aria-pressed="true">中</button>
+        <button class="small-btn" id="en-btn" type="button" aria-label="Switch to English" aria-pressed="false">EN</button>
+        <button class="small-btn theme-button" id="theme-btn" type="button" aria-label="切换深色模式" title="Light / Dark">☾</button>
+      </div>
+    </div>
+  </header>
+  <main id="main">
+    <div id="top"></div>
+    <section class="hero" aria-labelledby="hero-name">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow"><span class="zh">计算机科学 · 人工智能研究</span><span class="en">Computer Science · AI Research</span></div>
+          <h1 id="hero-name"><span class="zh">刘善宇<span style="color:var(--accent)">.</span></span><span class="en">Shanyu Liu<span style="color:var(--accent)">.</span></span></h1>
+          <div class="pronunciation"><span class="zh">SHANYU LIU / RESEARCHER</span><span class="en">LIU SHANYU / 刘善宇</span></div>
+          <p class="hero-subtitle"><span class="zh">让多智能体系统更高效、更可靠。</span><span class="en">Towards more efficient and reliable multi-agent intelligence.</span></p>
+          <p class="hero-body"><span class="zh">中国石油大学（华东）计算机技术硕士研究生。聚焦大语言模型多智能体系统、角色自适应模型路由、智能体记忆与协作优化，并探索 AI 在工业场景中的应用。</span><span class="en">Master's student in Computer Technology at China University of Petroleum (East China). My work focuses on LLM-based multi-agent systems, role-adaptive routing, agent memory, and practical AI for industrial systems.</span></p>
+          <div class="hero-affiliation"><span class="affiliation-icon" aria-hidden="true">✦</span><span class="zh">中国石油大学（华东） · 计算机科学与技术学院 / 青岛软件学院</span><span class="en">College of Computer Science & Technology / Qingdao Institute of Software, CUP-EC</span></div>
+          <div class="actions">
+            <a href="#publications" class="btn btn-primary"><span class="zh">查看研究成果</span><span class="en">Explore publications</span><span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/kevinzhuzhulsy" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="photo-region">
+          <div class="photo-frame"><img src="data:image/webp;base64,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" width="400" height="500" alt="刘善宇 / Shanyu Liu 的证件照" loading="eager" fetchpriority="high"></div>
+          <div class="photo-caption"><strong><span class="zh">研究关键词</span><span class="en">Research keywords</span></strong><span>Multi-Agent Systems · LLM Routing</span></div>
+        </div>
+      </div>
+    </section>
+    <div class="wrap">
+      <div class="metrics" aria-label="Selected research outcomes">
+        <div class="metric"><div class="metric-number">41.6%</div><div class="metric-name"><span class="zh">强模型 Token 使用量最多降低</span><span class="en">Lower strong-model token usage</span></div><div class="metric-source">RIDGE · SWE-bench Lite / WebArena-Verified</div></div>
+        <div class="metric"><div class="metric-number">76.19%</div><div class="metric-name"><span class="zh">失败关键步骤分配至强模型</span><span class="en">Failure-critical steps sent to strong models</span></div><div class="metric-source">RIDGE · <span class="zh">实验结果</span><span class="en">Experimental result</span></div></div>
+        <div class="metric"><div class="metric-number">72.4%</div><div class="metric-name"><span class="zh">推理成本最多降低</span><span class="en">Lower inference cost</span></div><div class="metric-source">CASTER · <span class="zh">对比强模型基线</span><span class="en">vs. strong-model baselines</span></div></div>
+      </div>
+    </div>
+
+    <section class="section" id="about">
+      <div class="wrap">
+        <div class="section-head"><div><div class="section-kicker">01 / PROFILE</div><h2><span class="zh">关于我</span><span class="en">About me</span></h2></div><p class="section-lead"><span class="zh">从算法研究到工程系统，关注能够落地的智能体技术。</span><span class="en">Bridging method development and real-world AI systems.</span></p></div>
+        <div class="about-grid">
+          <div class="panel body-copy"><p class="zh">我目前就读于中国石油大学（华东），攻读计算机技术硕士学位，本科毕业于中北大学计算机科学与技术专业。我的研究围绕 <strong style="color:var(--ink-strong)">LLM-based Multi-Agent Systems</strong> 展开，重点探索动态模型路由、角色感知决策、执行风险评估与智能体协作机制。</p><p class="en">I am pursuing a master's degree in Computer Technology at China University of Petroleum (East China), after earning a bachelor's degree in Computer Science and Technology from North University of China. My research explores <strong style="color:var(--ink-strong)">LLM-based multi-agent systems</strong>, with an emphasis on adaptive model routing, role-aware decision-making, execution-risk estimation, and collaborative intelligence.</p><p class="zh">除了科研工作，我也参与工业智能化项目，尝试将知识图谱、RAG、多模态感知与 Agent 工作流结合，服务于复杂装备的监测、维护和智能化分析。</p><p class="en">Beyond foundational research, I investigate applied AI for industrial workflows, integrating knowledge graphs, RAG, multimodal sensing, and agent-based automation for monitoring and maintenance.</p></div>
+          <div class="panel"><div class="label-small"><span class="zh">关注领域</span><span class="en">Areas of interest</span></div><span class="interest-tag">LLM-based MAS</span><span class="interest-tag">Adaptive Routing</span><span class="interest-tag">Agent Memory</span><span class="interest-tag">Role-Aware Collaboration</span><span class="interest-tag">RAG & Knowledge Graphs</span><span class="interest-tag">Industrial AI</span><div class="divider-line"></div><div class="label-small"><span class="zh">技术关键词</span><span class="en">Technical toolkit</span></div><span class="interest-tag">Python</span><span class="interest-tag">LangGraph</span><span class="interest-tag">LangChain</span><span class="interest-tag">Qwen</span><span class="interest-tag">Multimodal Analytics</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="research">
+      <div class="wrap"><div class="section-head"><div><div class="section-kicker">02 / RESEARCH AREAS</div><h2><span class="zh">研究方向</span><span class="en">Research interests</span></h2></div><p class="section-lead"><span class="zh">从模型选择、协作记忆到实际系统的统一研究路径。</span><span class="en">From model selection and collaborative memory to intelligent applications.</span></p></div>
+        <div class="research-grid">
+          <article class="research-card"><div class="research-icon" aria-hidden="true">↗</div><h3><span class="zh">动态模型路由</span><span class="en">Adaptive LLM Routing</span></h3><p><span class="zh">结合任务上下文、Agent 角色与执行反馈，动态决定何时调用不同能力的模型，在任务成功率与计算开销间取得更优平衡。</span><span class="en">Using context, agent roles, and execution feedback to select models at each step, balancing task success against computation costs.</span></p></article>
+          <article class="research-card"><div class="research-icon" aria-hidden="true">◇</div><h3><span class="zh">多智能体协作与记忆</span><span class="en">Multi-Agent Collaboration & Memory</span></h3><p><span class="zh">研究不同角色间的经验共享、记忆使用与协作决策机制，探索复杂工作流中可复用的团队知识。</span><span class="en">Studying experience sharing, memory usage, and collaboration across specialized agent roles in complex workflows.</span></p></article>
+          <article class="research-card"><div class="research-icon" aria-hidden="true">⌘</div><h3><span class="zh">工业场景智能体</span><span class="en">Agents for Industrial AI</span></h3><p><span class="zh">将知识增强生成、多模态数据融合与 Agent 工作流引入设备监测、故障诊断和专业分析任务。</span><span class="en">Combining grounded generation, multimodal fusion, and agent workflows for equipment monitoring, fault analysis, and domain tasks.</span></p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="publications">
+      <div class="wrap"><div class="section-head"><div><div class="section-kicker">03 / RESEARCH OUTPUT</div><h2><span class="zh">论文与研究成果</span><span class="en">Publications & preprints</span></h2></div><p class="section-lead"><span class="zh">面向异构大模型的多智能体动态路由研究。</span><span class="en">Efficient routing for heterogeneous language models in multi-agent settings.</span></p></div>
+        <div class="pub-list">
+          <article class="pub-card"><div class="pub-year">2026<span>RESEARCH</span></div><div><div class="pub-topline"><span class="pill"><span class="zh">审稿中</span><span class="en">Under review</span></span><span class="pill neutral">Multi-Agent Routing</span></div><h3 class="pub-title">RIDGE: Role-Adaptive Routing for LLM-based Multi-Agent Systems</h3><p class="zh">提出轻量级角色自适应模型路由框架：利用在线 Critic 评估和故障归因构建六维执行风险状态，再由角色条件超网络预测不同模型的执行风险；在线 MemoryBank 辅助决策。面向 SWE-bench Lite 与 WebArena-Verified 评估。</p><p class="en">A lightweight role-adaptive router that derives six-dimensional execution-risk states from online Critic evaluations and forensic attribution. A role-conditioned hypernetwork estimates model-specific risks, supported by an online MemoryBank. Evaluated on SWE-bench Lite and WebArena-Verified.</p><div class="result-line"><span class="zh">核心结果：强模型 Token 使用量最多降低 41.6%；76.19% 的失败关键步骤被路由至强模型（OmniRouter：21.99%；RouteLLM：15.06%）。</span><span class="en">Key results: up to 41.6% fewer strong-model tokens; 76.19% of failure-critical steps routed to strong models (OmniRouter: 21.99%; RouteLLM: 15.06%).</span></div></div></article>
+          <article class="pub-card"><div class="pub-year">2026<span>ARXIV</span></div><div><div class="pub-topline"><span class="pill"><span class="zh">预印本</span><span class="en">Preprint</span></span><span class="pill neutral">Cost-Aware Routing</span></div><h3 class="pub-title">CASTER: Breaking the Cost-Performance Barrier in Multi-Agent Orchestration via Context-Aware Strategy for Task Efficient Routing</h3><p class="zh">提出面向图结构多智能体系统的轻量级动态路由方法，通过语义嵌入与结构元特征组成双信号路由器，并采用从冷启动到迭代进化的优化过程，利用路由失败反馈更新决策。</p><p class="en">A context-aware dual-signal router for graph-based MAS, combining semantic embeddings with structural meta-features. A cold-start-to-iterative-evolution training strategy learns from routing failures using on-policy negative feedback.</p><div class="result-line"><span class="zh">核心结果：在软件工程、数据分析、科学发现和网络安全等任务上，与强模型基线相比，推理成本最多降低 72.4%。</span><span class="en">Key result: up to 72.4% lower inference cost than strong-model baselines across software engineering, data analysis, scientific discovery, and cybersecurity.</span></div><a class="text-link" href="https://doi.org/10.48550/arXiv.2601.19793" target="_blank" rel="noopener noreferrer"><span class="zh">阅读论文 / arXiv</span><span class="en">Read preprint / arXiv</span><span aria-hidden="true">↗</span></a></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="wrap"><div class="section-head"><div><div class="section-kicker">04 / SELECTED WORK</div><h2><span class="zh">项目经历</span><span class="en">Selected projects</span></h2></div><p class="section-lead"><span class="zh">科研系统、行业智能化与软件工程实践并重。</span><span class="en">Research systems, domain-specific AI, and software engineering practice.</span></p></div>
+        <div class="project-grid">
+          <article class="project-card"><div class="project-number">PROJECT 01 / INDUSTRIAL AI</div><h3><span class="zh">自动化修井装备智能化升级</span><span class="en">Intelligent Upgrading of Well Servicing Equipment</span></h3><p class="zh">围绕修井作业设计文档自动生成与智能运维，将井下小修领域知识库、知识图谱、LLM、RAG 与多智能体工作流结合；融合热成像、三轴振动、PLC 及四气体监测数据，研究异常设备识别、故障预警与设备健康报告生成。</p><p class="en">Research on automated job-plan generation and intelligent maintenance for well servicing equipment. Combines domain knowledge, knowledge graphs, LLM/RAG, and agent workflows with thermal imagery, 3-axis vibration, PLC, and four-gas sensing for fault detection and equipment-health reporting.</p><div class="tech-row"><span class="tech">Multi-Agent</span><span class="tech">Multimodal Sensing</span><span class="tech">RAG</span><span class="tech">Knowledge Graph</span></div></article>
+          <article class="project-card"><div class="project-number">PROJECT 02 / RESEARCH PROPOSAL</div><h3><span class="zh">DRPAgent：数字岩石物理智能体</span><span class="en">DRPAgent: Digital Rock Physics Agent</span></h3><p class="zh">研究方案拟融合领域微调 SAM、知识图谱与 LLM，构建目标驱动的自主规划、工具优选和多智能体协作机制，辅助岩石孔隙结构表征、渗流模拟与物性分析。</p><p class="en">A proposed agentic framework combining domain-adapted SAM, knowledge graphs, and LLMs for goal-driven workflow planning, tool selection, and multi-agent collaboration in pore characterization, flow simulation, and petrophysical analysis.</p><div class="tech-row"><span class="tech">SAM</span><span class="tech">Knowledge Graph</span><span class="tech">Planning</span><span class="tech">Proposed</span></div></article>
+          <article class="project-card"><div class="project-number">PROJECT 03 / AGENT SYSTEMS</div><h3><span class="zh">基于 LangGraph 的线上销售数据分析 Agent</span><span class="en">Online Sales Data Analysis Agent</span></h3><p class="zh">基于 LangGraph、LangChain 和 Qwen 开发多智能体数据研究系统。通过假设生成、流程控制、检索、代码执行、可视化、报告生成和质量审查七类角色协作，实现端到端数据分析。</p><p class="en">An agent-based data research platform built with LangGraph, LangChain, and Qwen. Seven specialized roles—Hypothesis, Process, Search, Code, Visualization, Report, and QualityReview—collaborate on end-to-end analysis.</p><div class="tech-row"><span class="tech">LangGraph</span><span class="tech">LangChain</span><span class="tech">Qwen</span><span class="tech">Data Analysis</span></div></article>
+          <article class="project-card"><div class="project-number">PROJECT 04 / KNOWLEDGE AI</div><h3><span class="zh">基于 RAG 的学院专属知识增强系统</span><span class="en">RAG-based College Knowledge Assistant</span></h3><p class="zh">以中北大学计算机科学与技术学院为场景，通过 LangChain 和百度千帆平台建立学院规章制度及文化资料向量知识库，提供可溯源的领域知识问答。</p><p class="en">An undergraduate project using LangChain and Baidu Qianfan to ground LLM responses in a vector database of college policies and institutional materials, enabling domain-specific question answering.</p><div class="tech-row"><span class="tech">RAG</span><span class="tech">Vector DB</span><span class="tech">LangChain</span><span class="tech">Qianfan</span></div></article>
+          <article class="project-card"><div class="project-number">PROJECT 05 / FULL-STACK</div><h3><span class="zh">基于 Apriori 的商品推荐系统</span><span class="en">Apriori-based Product Recommendation System</span></h3><p class="zh">独立完成毕业实习项目的数据库、前后端和 Apriori 算法开发，基于现有数据集挖掘商品关联规则，实现推荐功能和完整的数据增删改查。</p><p class="en">Independently implemented database, frontend, backend, and Apriori association-rule algorithms for product recommendation, with full CRUD functionality.</p><div class="tech-row"><span class="tech">Apriori</span><span class="tech">Full-stack</span><span class="tech">Database</span></div></article>
+          <article class="project-card"><div class="project-number">PROJECT 06 / PRODUCTIVITY</div><h3>iPlanner</h3><p class="zh">面向个人与团队的日程管理与协作工具，集成会议纪要、快捷笔记、日程安排及智能推荐模块，改善日常任务组织体验。</p><p class="en">A productivity and collaboration platform featuring meeting minutes, quick notes, scheduling, and intelligent recommendation modules for individuals and teams.</p><div class="tech-row"><span class="tech">Productivity</span><span class="tech">Scheduling</span><span class="tech">Collaboration</span></div></article>
+          <article class="project-card"><div class="project-number">PROJECT 07 / SYSTEMS</div><h3><span class="zh">Windows PE 文件解析器</span><span class="en">Windows PE File Parser</span></h3><p class="zh">在自主学习 Windows 逆向工程的过程中实现的工具，可解析 Portable Executable 文件结构、节表、导入导出表、重定位表与符号地址等信息。</p><p class="en">A systems-learning project for inspecting Portable Executable structures, including sections, imports, exports, relocations, and symbol addresses.</p><div class="tech-row"><span class="tech">Windows</span><span class="tech">PE Format</span><span class="tech">Systems Programming</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="education">
+      <div class="wrap"><div class="section-head"><div><div class="section-kicker">05 / ACADEMIC JOURNEY</div><h2><span class="zh">教育与访学</span><span class="en">Education & visiting research</span></h2></div><p class="section-lead"><span class="zh">以计算机科学为基础，持续探索可信、高效的智能体系统。</span><span class="en">A computer science background with a focus on intelligent agent systems.</span></p></div>
+        <div class="education-grid"><div class="timeline">
+          <div class="timeline-item"><div class="date"><span class="zh">2027 · 计划中</span><span class="en">2027 · Planned</span></div><h3><span class="zh">南洋理工大学 · 研究访学</span><span class="en">Nanyang Technological University · Research Visit</span></h3><p><span class="zh">新加坡 · 可信智能体相关研究（拟进行；具体时间与资格以正式审批为准）</span><span class="en">Singapore · Proposed visiting research on trustworthy agents; subject to formal approval</span></p></div>
+          <div class="timeline-item"><div class="date"><span class="zh">2025.09 — 至今</span><span class="en">Sep 2025 — Present</span></div><h3><span class="zh">中国石油大学（华东）</span><span class="en">China University of Petroleum (East China)</span></h3><p><span class="zh">计算机技术 · 硕士研究生 · GPA 4.08 / 5（中文简历）</span><span class="en">Master's student in Computer Technology · GPA 4.08 / 5 (Chinese résumé)</span></p></div>
+          <div class="timeline-item"><div class="date"><span class="zh">2021.09 — 2025.06</span><span class="en">Sep 2021 — Jun 2025</span></div><h3><span class="zh">中北大学</span><span class="en">North University of China</span></h3><p><span class="zh">计算机科学与技术 · 本科 · 本科 GPA 3.62（英文 CV）</span><span class="en">B.S. in Computer Science and Technology · Undergraduate GPA 3.62 (English CV)</span></p></div>
+        </div><aside class="edu-extra"><div class="label-small"><span class="zh">学业表现</span><span class="en">Academic record</span></div><strong>4.08 / 5.0</strong><p><span class="zh">硕士阶段 GPA（据中文简历）</span><span class="en">Master's GPA (as stated in the Chinese résumé)</span></p><div class="divider-line"></div><div class="label-small"><span class="zh">英语能力</span><span class="en">English proficiency</span></div><strong>CET-6 · 459</strong><p>CET-4 · 503</p><div class="label-small"><span class="zh">预计毕业</span><span class="en">Expected graduation</span></div><strong>2028</strong><p><span class="zh">中国石油大学（华东）· 硕士</span><span class="en">Master's degree, CUP-EC</span></p></aside></div>
+      </div>
+    </section>
+
+    <section class="section" id="honors">
+      <div class="wrap"><div class="section-head"><div><div class="section-kicker">06 / RECOGNITION</div><h2><span class="zh">竞赛与荣誉</span><span class="en">Awards & honors</span></h2></div><p class="section-lead"><span class="zh">竞赛、科研实践及在校表现方面的主要荣誉。</span><span class="en">Selected competition awards and university recognitions.</span></p></div>
+        <div class="honors-list">
+          <div class="honor"><span class="honor-mark">✧</span><div><span class="zh">国家管网“领航杯”人工智能算法创新大赛 · 商务管理赛道 Agent 开发优秀奖</span><span class="en">PipeChina “Linghang Cup” AI Algorithm Innovation Competition · Excellence Award in Agent Development</span></div></div>
+          <div class="honor"><span class="honor-mark">✧</span><div><span class="zh">华北五省及港澳台大学生计算机应用大赛 · 国家一等奖、二等奖</span><span class="en">Computer Application Competition (Five Northern Provinces, Hong Kong, Macao & Taiwan) · National First & Second Prizes</span></div></div>
+          <div class="honor"><span class="honor-mark">✧</span><div><span class="zh">“工行杯”全国大学生金融科技创新大赛 · 省级一等奖</span><span class="en">ICBC Cup National College Student FinTech Innovation Competition · Provincial First Prize</span></div></div>
+          <div class="honor"><span class="honor-mark">✧</span><div><span class="zh">中国大学生计算机设计大赛 · 省级一等奖、三等奖</span><span class="en">Chinese Collegiate Computing Competition · Provincial First & Third Prizes</span></div></div>
+          <div class="honor"><span class="honor-mark">✧</span><div><span class="zh">大学生创新创业计划年会 · 项目展示</span><span class="en">Annual Conference of College Student Innovation & Entrepreneurship Program · Project Showcase</span></div></div>
+          <div class="honor"><span class="honor-mark">✧</span><div><span class="zh">蓝桥杯视觉艺术大赛设计类 · 省级二等奖；“互联网+” · 校级一等奖</span><span class="en">Lanqiao Cup Visual Arts (Design) · Provincial Second Prize; “Internet+” · University First Prize</span></div></div>
+          <div class="honor"><span class="honor-mark">✧</span><div><span class="zh">综合素质奖学金 · 一等奖一次、二等奖两次</span><span class="en">Comprehensive Merit Scholarship · First Class (once), Second Class (twice)</span></div></div>
+          <div class="honor"><span class="honor-mark">✧</span><div><span class="zh">优秀学生干部、优秀共青团干部、校级优秀毕业生</span><span class="en">Outstanding Student Leader, Outstanding Youth League Student Leader, and Outstanding Graduate</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap"><div class="contact-panel"><div><div class="section-kicker">07 / CONTACT</div><h2><span class="zh">欢迎交流。</span><span class="en">Let's connect.</span></h2><p><span class="zh">欢迎围绕 LLM、多智能体系统、Agent 路由与工业 AI 展开学术交流或项目合作。</span><span class="en">I welcome research discussions and collaborations around LLMs, multi-agent systems, model routing, and applied industrial AI.</span></p></div><div class="contact-buttons"><a class="btn" href="mailto:89724489@qq.com"><span class="zh">发送邮件</span><span class="en">Email me</span><span aria-hidden="true">↗</span></a><a class="btn ghost" href="https://github.com/kevinzhuzhulsy" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div></div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="wrap footer-inner"><div>© <span id="year">2026</span> Shanyu Liu · 刘善宇</div><div><span class="zh">用 HTML / CSS / JavaScript 构建 · GitHub Pages 托管</span><span class="en">Built with HTML / CSS / JavaScript · Hosted on GitHub Pages</span></div><a href="#top"><span class="zh">返回顶部 ↑</span><span class="en">Back to top ↑</span></a></div></footer>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const storage = {
+        getItem(key) { try { return window.localStorage.getItem(key); } catch { return null; } },
+        setItem(key, value) { try { window.localStorage.setItem(key, value); } catch {} }
+      };
+      const zhBtn = document.getElementById('zh-btn');
+      const enBtn = document.getElementById('en-btn');
+      const themeBtn = document.getElementById('theme-btn');
+      const params = new URLSearchParams(window.location.search);
+      const qsLang = params.get('lang');
+      let lang = qsLang === 'en' || qsLang === 'zh' ? qsLang : (storage.getItem('site-language') || 'zh');
+      const setLanguage = (value, updateUrl = true) => {
+        lang = value === 'en' ? 'en' : 'zh';
+        document.body.classList.toggle('lang-en', lang === 'en');
+        document.body.classList.toggle('lang-zh', lang === 'zh');
+        root.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        zhBtn.setAttribute('aria-pressed', String(lang === 'zh'));
+        enBtn.setAttribute('aria-pressed', String(lang === 'en'));
+        document.title = lang === 'zh' ? '刘善宇 Shanyu Liu · 学术主页' : 'Shanyu Liu · Academic Homepage';
+        storage.setItem('site-language', lang);
+        if (updateUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('lang', lang);
+          try { window.history.replaceState({}, '', url.pathname + url.search + url.hash); } catch {}
+        }
+      };
+      zhBtn.addEventListener('click', () => setLanguage('zh'));
+      enBtn.addEventListener('click', () => setLanguage('en'));
+      setLanguage(lang, false);
+      const savedTheme = storage.getItem('site-theme');
+      const setTheme = (theme) => {
+        root.dataset.theme = theme;
+        themeBtn.textContent = theme === 'dark' ? '☀' : '☾';
+        themeBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        storage.setItem('site-theme', theme);
+      };
+      setTheme(savedTheme === 'dark' ? 'dark' : 'light');
+      themeBtn.addEventListener('click', () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
 </body>
 </html>
